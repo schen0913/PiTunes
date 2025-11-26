@@ -37,6 +37,22 @@ class DeviceQueue:
             print(f"[queue] added {name} ({mac})")
             return True
         
+    #When current device decides to end its turn
+    async def endTurn(self):
+        async with self.lock:
+            if not self.current:
+                return None
+            
+            ended = self.current
+            self.voters.clear()
+
+            if self.queue:
+                self.current = self.queue.pop(0)
+                return self.current
+            else:
+                self.current = None
+                return None
+        
     #When current device disconnects or idle timeout hits
     async def autoNext(self):
         async with self.lock:
@@ -48,5 +64,6 @@ class DeviceQueue:
             self.current = self.queue.pop(0)
             return self.current
         
-    #When user chooses to skip
+    #Checks if current device is voted to be skipped
+    
 
