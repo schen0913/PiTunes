@@ -1,0 +1,52 @@
+import asyncio
+
+#Constant variables
+SKIP_THRESHOLD = 2
+
+class DeviceQueue:
+    def __init__(self) -> None:
+        self.lock = asyncio.Lock()
+        self.queue = []             #list of {"mac", "name"}
+        self.current = None         #{"mac", "name"} or None
+        self.voters = set()
+
+    #Return snapshot of queue state
+    async def snapshot(self):
+        async with self.lock:
+            return
+            {
+                "current": self.current,
+                "queue": list(self.queue),
+                "votes": len(self.voters),
+                "skip_threshold": SKIP_THRESHOLD
+            }
+
+    #Adds a device to queue only if it's new
+    async def addDevice(self, mac, name):
+        async with self.lock:
+            if not name: 
+                name = mac
+
+            if self.current and self.current.get("mac") == mac:
+                return False
+            
+            if any(device["mac"] == mac for device in self.queue):
+                return False
+            
+            self.queue.append({"mac":mac, "name": name})
+            print(f"[queue] added {name} ({mac})")
+            return True
+        
+    #When current device disconnects or idle timeout hits
+    async def autoNext(self):
+        async with self.lock:
+            if not self.queue:
+                self.current = None
+                return None
+            
+            self.voters.clear()
+            self.current = self.queue.pop(0)
+            return self.current
+        
+    #When user chooses to skip
+
