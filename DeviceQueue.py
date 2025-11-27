@@ -63,7 +63,15 @@ class DeviceQueue:
             self.voters.clear()
             self.current = self.queue.pop(0)
             return self.current
-        
-    #Checks if current device is voted to be skipped
     
-
+    async def voteSkip(self, voterID):
+        async with self.lock:
+            if not self.current:
+                return False, False
+            
+            self.voters.add(voterID)
+            
+            if len(self.voters) >= SKIP_THRESHOLD:
+                self.voters.clear()
+                return True, True
+            return True, False
