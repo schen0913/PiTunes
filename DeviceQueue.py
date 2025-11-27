@@ -13,8 +13,7 @@ class DeviceQueue:
     #Return snapshot of queue state
     async def snapshot(self):
         async with self.lock:
-            return
-            {
+            return {
                 "current": self.current,
                 "queue": list(self.queue),
                 "votes": len(self.voters),

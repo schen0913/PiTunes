@@ -11,7 +11,7 @@ async def main():
     bt = BluetoothManager(queue, router)
 
     #Background tasks
-    asyncio.create_task(bt.pollLoopTBD())
+    asyncio.create_task(bt.pollLoop())
     asyncio.create_task(ws_broadcast(queue))
 
     #Start Quart API
