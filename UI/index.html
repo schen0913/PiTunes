@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>piTunes</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #202737;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+      
+        .section {
+            background-color: #2f3646;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .queue-list {
+            max-height: 200px;        
+            overflow-y: auto;        
+            padding-right: 5px;      
+        }
+
+        .queue-item {
+            background-color: #3b4354;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .device-name {
+            font-weight: bold;
+        }
+
+        .mac {
+            color: #b8c0d0;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .stop-btn {
+            background-color: #ff6b6b;
+        }
+
+        .like-btn {
+            background-color: #5a6dff;
+        }
+
+        .skip-btn {
+            background-color: #66d17f;
+        }
+
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome to piTunes</h1>
+
+    <div class="section">
+        <p style="color: lightgreen;">You have the control</p>
+        <div class="controls">
+            <button class="stop-btn">Stop Playing</button>
+            <button class="skip-btn">Vote to Skip</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Current Queue</h2>
+
+        <div class="queue-list">
+            <div class="queue-item">
+                <div class="device-name">Device Name: <span style="color:#9ecbff;">user1</span></div>
+                <div class="mac">MAC: : : : : : </div>
+            </div>
+
+            <div class="queue-item">
+                <div class="device-name">Device Name: <span style="color:#9ecbff;">user2</span></div>
+                <div class="mac">MAC: : : : : : </div>
+            </div>
+
+            <div class="queue-item">
+                <div class="device-name">Device Name: <span style="color:#9ecbff;">user3</span></div>
+                <div class="mac">MAC: : : : : : </div>
+            </div>
+
+            <div class="queue-item">
+                <div class="device-name">Device Name: <span style="color:#9ecbff;">user4</span></div>
+                <div class="mac">MAC: : : : : : </div>
+            </div>
+
+            <div class="queue-item">
+                <div class="device-name">Device Name: <span style="color:#9ecbff;">user5</span></div>
+                <div class="mac">MAC: : : : : : </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
