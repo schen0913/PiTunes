@@ -1,5 +1,6 @@
 import asyncio
 import subprocess
+import re
 
 class BluetoothManager:
     def __init__(self, queue, router):
@@ -7,7 +8,7 @@ class BluetoothManager:
         self.router = router
         self.connected_device = None
 
-    async def connect_device(self, device_address):
+    async def connectDevice(self, device_address):
         if self.connected_device == device_address:
             return  # Already connected to this device
 
@@ -27,9 +28,9 @@ class BluetoothManager:
             print(f"Failed to connect to {device_address}: {stderr.decode().strip()}")
 
     async def pollLoop(self):
-        # Check for paired devices and add to queue
+        # Check for available devices and add to queue
         while True:
-            command = "bluetoothctl devices Paired"
+            command = "hcitool scan"
             process = await asyncio.create_subprocess_shell(
                 command,
                 stdout=asyncio.subprocess.PIPE,
@@ -41,8 +42,8 @@ class BluetoothManager:
             if process.returncode == 0:
                 devices_output = stdout.decode().strip().split('\n')
                 for line in devices_output:
-                    if line.startswith('Device'):
-                        parts = line.split(' ', 2)
+                    if not line.startswith('Scanning'):
+                        parts = re.split(' |\t|\n', line, 2)
                         mac = parts[1]
                         name = parts[2] if len(parts) > 2 else ""
                         await self.queue.addDevice(mac, name)

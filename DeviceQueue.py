@@ -1,4 +1,5 @@
 import asyncio
+from BluetoothManager import BluetoothManager
 
 #Constant variables
 SKIP_THRESHOLD = 2
@@ -33,6 +34,7 @@ class DeviceQueue:
                 return False
             
             if not self.current:
+                await BluetoothManager.connectDevice(self, mac)
                 self.current = {"mac": mac, "name": name}
                 print(f"[queue] set current to {name} ({mac})")
                 return True
@@ -51,6 +53,7 @@ class DeviceQueue:
             self.voters.clear()
 
             if self.queue:
+                await BluetoothManager.connectDevice(self, self.queue[0]["mac"])
                 self.current = self.queue.pop(0)
                 return self.current
             else:
