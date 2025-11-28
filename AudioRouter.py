@@ -8,7 +8,6 @@ class AudioRouter:
         if self.current_device == device_name:
             return  # Already routed to this device
 
-        # Example command to route audio (this will vary based on the system)
         command = f"pactl set-default-sink {device_name}"
         try:
             subprocess.run(command, shell=True, check=True)
