@@ -47,4 +47,4 @@ class BluetoothManager:
                         name = parts[2] if len(parts) > 2 else ""
                         await self.queue.addDevice(mac, name)
 
-            await asyncio.sleep(30)  # Poll every 30 seconds
+            await asyncio.sleep(10)  # Poll every 10 seconds
