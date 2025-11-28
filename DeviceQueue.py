@@ -32,9 +32,14 @@ class DeviceQueue:
             if any(device["mac"] == mac for device in self.queue):
                 return False
             
-            self.queue.append({"mac":mac, "name": name})
-            print(f"[queue] added {name} ({mac})")
-            return True
+            if not self.current:
+                self.current = {"mac": mac, "name": name}
+                print(f"[queue] set current to {name} ({mac})")
+                return True
+            else:
+                self.queue.append({"mac":mac, "name": name})
+                print(f"[queue] added {name} ({mac})")
+                return True
         
     #When current device decides to end its turn
     async def endTurn(self):
