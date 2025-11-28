@@ -71,7 +71,7 @@ class BluetoothManager:
                     for l in out_text.splitlines():
                         if l.strip().startswith("Paired:"):
                             val = l.split(":", 1)[1].strip().lower()
-                            connected = (val == "yes")
+                            paired = (val == "yes")
                             break
 
                     if paired:
