@@ -1,5 +1,5 @@
 
-# PiTunes JavaScript
+// PiTunes JavaScript
 async function api(path, method = "GET", body = null) {
     const opts = { method, headers: {} };
     if (body) {
@@ -10,7 +10,7 @@ async function api(path, method = "GET", body = null) {
     return res.json();
 }
 
-# UI Update
+// UI Update
 function updateUI(state) {
     const currentEl = document.getElementById("currentDevice");
     const queueEl = document.getElementById("queue");
@@ -35,7 +35,7 @@ function updateUI(state) {
     votesEl.textContent = `${state.votes}/${state.skip_threshold}`;
 }
 
-# WebSocket live updates 
+// WebSocket live updates 
 
 function startWebSocket() {
     const ws = new WebSocket("ws://" + window.location.hostname + ":8765");
@@ -51,7 +51,7 @@ function startWebSocket() {
     };
 }
 
-# REST endpoints
+// REST endpoints
 
 async function voteSkip() {
     await api("/skip", "POST");
@@ -61,7 +61,7 @@ async function endTurn() {
     await api("/endTurn", "POST");
 }
 
-# Event Listeners
+// Event Listeners
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("skipBtn")
         .addEventListener("click", voteSkip);
