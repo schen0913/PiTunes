@@ -68,6 +68,7 @@ class DeviceQueue:
                 return None
             
             self.voters.clear()
+            await BluetoothManager.connectDevice(self, self.queue[0]["mac"])
             self.current = self.queue.pop(0)
             return self.current
     
